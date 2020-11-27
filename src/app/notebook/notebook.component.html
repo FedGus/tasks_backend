@@ -1,0 +1,45 @@
+<div class="container">
+  <h2 class="mt-5 mb-3 d-flex justify-content-center">Заметки</h2>
+  <p *ngIf="hide1" class="mt-4 mb-4 d-flex justify-content-center">
+    Хотите пользоваться блокнотом?<a [routerLink]="['/login']"
+      >&nbsp;Авторизируйтесь или зарегистрируйтесь!</a
+    >
+  </p>
+  <div class="row mt-2 mb-1"></div>
+
+  <div *ngIf="!hide1">
+    <div
+      *ngIf="loading"
+      style="height: calc(100vh - 73px - 2rem)"
+      class="container d-flex justify-content-center align-content-center"
+    >
+      <div class="spinner-border txt-gray-bread m-auto" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="container mt-5" *ngIf="!loading">
+      <div
+        *ngIf="!notfound; else blockNotFound"
+        class="row mt-3 justify-content-md-start justify-content-lg-between justify-content-center justify-content-xl-start"
+      >
+        <app-note
+          *ngFor="let note of notes"
+          [note]="note"
+          (del)="onDeleteNote(note.id_note)"
+          class="col-lg-3 col-xl-3 col-md-6 col-sm-12 col-xs-12"
+        ></app-note>
+      </div>
+      <br />
+      <ng-template #blockNotFound>
+        <h3 class="font-weight-normal">К сожалению, заметок не найдено :(</h3>
+      </ng-template>
+      <div class="row" *ngIf="!hide1">
+        <div class="col-sm-12 col-md-12 col-lg-auto col-xl-auto">
+          <a class="btn btn-success btn-block" [routerLink]="['/addNote']"
+            >Добавить новую заметку</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

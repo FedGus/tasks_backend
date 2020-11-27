@@ -1,0 +1,25 @@
+<div class="mb-3">
+  <div class="card mb-4 shadow-sm" *ngIf="demonstrateNote">
+    <div class="card-body">
+      <p
+        class="card-text h5 text-center"
+        style="cursor: pointer"
+        (click)="onLinkNote(note.id_note)"
+      >
+        {{ note.name }}
+      </p>
+      <br />
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group" *ngIf="!hide1">
+          <button
+            type="button"
+            class="btn-sm btn btn-danger"
+            (click)="onDeleteNote(note.id_note)"
+          >
+            Удалить
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
