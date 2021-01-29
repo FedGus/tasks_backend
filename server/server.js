@@ -1,17 +1,13 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+const bodyParser = require("body-parser"); //body-parser разбирает JSON-тело POST-запросов
 const mysql = require("mysql2");
 const dbConfig = require("./db.config.js");
-const uniqueFilename = require("unique-filename");
-const serveStatic = require("serve-static");
 const history = require("connect-history-api-fallback");
 const app = express();
 const port = 8085;
 
 // Парсинг json
 app.use(bodyParser.json());
-
-app.use(history());
 
 // Парсинг запросов по типу: application/x-www-form-urlencoded
 app.use(
@@ -146,7 +142,7 @@ app.post("/api/registration", (req, res) => {
 //------- Запросы для работы с заметками -------//
 
 //Обработка получения списка заметок
-app.post("/api/notes", function (req, res) {
+app.get("/api/notes", function (req, res) {
   try {
     connection.query(
       `SELECT * FROM note WHERE id_user=${req.body.id_user}`,
@@ -243,6 +239,8 @@ app.put("/api/notes/:id_note", function (req, res) {
     console.log(error);
   }
 });
+
+app.use(history()); 
 
 // Информирование о запуске сервера и его порте
 app.listen(port, () => {
